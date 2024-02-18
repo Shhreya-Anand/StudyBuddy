@@ -3,14 +3,14 @@ import java.awt.*;
 
 public class Game {
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            User user = new User("Ria", "./data/hello-kitty-gif-pixel-sanrio-image-hello-kitty-frame.jpg", 30);
-            Board board = new Board(10, 10, user); // Initialize Board with User
-//            new MainFrame(board, user); // Initialize and display MainFrame with Board and User
-
+        SwingUtilities.invokeLater(() -> {
+            User user = new User("Ria", "./data/hello-kitty-gif-pixel-sanrio-image-hello-kitty-frame.jpg", 100);
+            Board board = new Board(10, 10, user);
+            // Create an instance of MainFrame
             MainFrame mainFrame = new MainFrame(board, user);
-            board.setMainFrame(mainFrame);
-
+            mainFrame.setVisible(true);
+            // Launch the quiz
+//            CSVQuestions CSVQuestions = new CSVQuestions();
         });
     }
 }

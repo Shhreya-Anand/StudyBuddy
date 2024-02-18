@@ -46,6 +46,8 @@ public class MainFrame extends JFrame {
         updateBottomBar(); // Initial update
     }
 
+
+
     private void loadNotes() {
         try (BufferedReader reader = new BufferedReader(new FileReader("./data/notes.txt"))) {
             String line;
