@@ -142,7 +142,21 @@ public class Board extends JPanel {
             // Trigger quiz or other actions based on the cell type
             handleCellAction(newRow, newCol);
         }
+        updateEndCell();
         repaint();
+    }
+
+    private void updateEndCell() {
+        if (user.getExp() >= 100) {
+            // Set the rightmost bottom corner cell to END type
+            board[rows - 1][cols - 1] = new SimpleCell(rows - 1, cols - 1, CellType.END);
+            repaint(); // Repaint the board to reflect the change
+        }
+    }
+
+    // Ensure this method is called after any action that might increase the user's EXP
+    public void checkUserExp() {
+        updateEndCell();
     }
 
 
@@ -160,8 +174,9 @@ public class Board extends JPanel {
             frame.setSize(400, 400);
             frame.setLocationRelativeTo(null);
 
-            src.PopUpMarket market = new src.PopUpMarket(frame);
-            market.display();
+                // Correcting the way PopUpMarket is displayed; no need for a new JFrame here
+                PopUpMarket market = new PopUpMarket(user, (JFrame) SwingUtilities.getWindowAncestor(this));
+                market.display();
         }
 
     }

@@ -1,5 +1,3 @@
-package src;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,9 +5,11 @@ import java.awt.event.ActionEvent;
 public class PopUpMarket {
 
     private JDialog dialog;
+    private User user;
     private JFrame owner;
 
-    public PopUpMarket(JFrame owner) {
+    public PopUpMarket(User user, JFrame owner) {
+        this.user = user;
         this.owner = owner;
         dialog = new JDialog(owner, "Market", true);
         dialog.setLayout(new BorderLayout());
@@ -19,73 +19,51 @@ public class PopUpMarket {
     }
 
     private void initializeUI() {
-        // Title label
         JLabel marketTitle = new JLabel("Market Options", SwingConstants.CENTER);
         marketTitle.setFont(new Font("Helvetica", Font.BOLD, 16));
-        marketTitle.setForeground(Color.BLACK);
         dialog.add(marketTitle, BorderLayout.NORTH);
 
-        // Buy button
-        JButton buyButton = new JButton("Buy");
-        buyButton.addActionListener(e -> displayBuyOptions());
-
-        // Setting up the main panel
-        JPanel mainPanel = new JPanel(new FlowLayout());
-        mainPanel.add(buyButton);
-        dialog.add(mainPanel, BorderLayout.CENTER);
-    }
-
-    private void displayBuyOptions() {
-        // Clear existing content
-        dialog.getContentPane().removeAll();
-
-        // Buttons for buying options
-        JButton fiftyFiftyButton = createButton("50/50", new Font("Helvetica", Font.PLAIN, 12), Color.BLACK, Color.LIGHT_GRAY, new Dimension(100, 30));
-        JButton switchButton = createButton("Switch", new Font("Helvetica", Font.PLAIN, 12), Color.BLACK, Color.LIGHT_GRAY, new Dimension(100, 30));
-        JButton hintButton = createButton("Hint", new Font("Helvetica", Font.PLAIN, 12), Color.BLACK, Color.LIGHT_GRAY, new Dimension(100, 30));
-        JButton backButton = createButton("Back", new Font("Helvetica", Font.PLAIN, 12), Color.BLACK, Color.LIGHT_GRAY, new Dimension(100, 30));
-
-        // Action for the "Back" button to return to the main market options
-        backButton.addActionListener((ActionEvent e) -> {
-            dialog.getContentPane().removeAll();
-            initializeUI();
-            dialog.revalidate();
-            dialog.repaint();
-        });
-
-        // Set up panel for buy options
         JPanel optionsPanel = new JPanel();
-        optionsPanel.setLayout(new GridLayout(2, 2, 5, 5)); // Grid layout for buttons
+        optionsPanel.setLayout(new GridLayout(4, 1, 5, 5)); // Grid layout for buttons
+
+        // Define buttons
+        JButton fiftyFiftyButton = createButton("Buy 50/50 - 10 Coins");
+        JButton switchButton = createButton("Buy Switch - 15 Coins");
+        JButton skipButton = createButton("Buy Skip - 5 Coins");
+        JButton backButton = createButton("Back");
+
+        // Add action listeners
+        fiftyFiftyButton.addActionListener(e -> buyItem("50/50", 10));
+        switchButton.addActionListener(e -> buyItem("Switch", 15));
+        skipButton.addActionListener(e -> buyItem("Skip", 5));
+        backButton.addActionListener((ActionEvent e) -> dialog.dispose());
+
+        // Add buttons to panel
         optionsPanel.add(fiftyFiftyButton);
         optionsPanel.add(switchButton);
-        optionsPanel.add(hintButton);
+        optionsPanel.add(skipButton);
         optionsPanel.add(backButton);
 
         dialog.add(optionsPanel, BorderLayout.CENTER);
-
-        // Refresh dialog to show new content
-        dialog.revalidate();
-        dialog.repaint();
     }
 
-    private JButton createButton(String text, Font font, Color foreground, Color background, Dimension size) {
+    private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(font);
-        button.setForeground(foreground);
-        button.setBackground(background);
-        button.setPreferredSize(size);
-        button.setOpaque(true);
-        button.setBorderPainted(false);
+        button.setFont(new Font("Helvetica", Font.PLAIN, 12));
         return button;
+    }
+
+    private void buyItem(String item, int cost) {
+        if (user.getCoins() >= cost) {
+            user.setCoins(user.getCoins() - cost);
+            user.addItemToInventory(item, 1);
+            JOptionPane.showMessageDialog(dialog, "You bought a " + item + "!");
+        } else {
+            JOptionPane.showMessageDialog(dialog, "Not enough coins to buy " + item + ".");
+        }
     }
 
     public void display() {
         dialog.setVisible(true);
-    }
-
-    // Example main method to show usage
-    public static void main(String[] args) {
-        // Assuming you have a frame to pass as owner
-
     }
 }

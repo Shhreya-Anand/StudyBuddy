@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-
 public class PopUpQuiz {
 
     private static final int MAX_QUESTIONS = 5;
@@ -167,10 +166,9 @@ public class PopUpQuiz {
             userScore += 10; // Correct answer, +10 points
             user.setExp(user.getExp() + 10); // Update user experience
         } else {
-            userScore -= 5; // Incorrect answer, -5 points
-            user.setExp(user.getExp() - 5); // Deduct experience for wrong answer
+            userScore -= 1; // Incorrect answer, -1 points
+            user.setExp(user.getExp() - 1); // Deduct experience for wrong answer
         }
-
         currentQuestionIndex++;
         displayQuestion(); // Move to the next question or end quiz
     }

@@ -1,3 +1,3 @@
 public enum CellType {
-    COMMON, OBSTACLE, MARKET, BLOCKED
+    COMMON, OBSTACLE, MARKET, BLOCKED, END
 }

@@ -11,7 +11,7 @@ public class User {
         this.name = name;
         this.avatar = avatar;
         this.exp = exp;
-        this.coins=coins;
+        this.coins=1000;
         this.inventory = new HashMap<>(); // Initialize inventory
     }
 
