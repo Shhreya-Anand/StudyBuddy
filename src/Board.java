@@ -79,7 +79,7 @@ public class Board extends JPanel {
     private void handleCellAction(int row, int col) {
         CellType cellType = board[row][col].getType();
         if (cellType == CellType.COMMON && new Random().nextDouble() < 0.3) {
-            new PopUpQuiz(null).display(); // Display quiz with a 30% chance on common cells
+            new PopUpQuiz().display(); // Display quiz with a 30% chance on common cells
         }
         else if (cellType == CellType.MARKET) {
             new PopUpMarket(null).display(); // Display market on market cells
