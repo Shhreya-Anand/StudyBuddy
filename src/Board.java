@@ -16,6 +16,9 @@ public class Board extends JPanel {
     private final Cell[][] board;
     private final int cellSize = 20;
     private Piece piece;
+    private int playerX = 0;
+    private int playerY = 0;
+
     public Board(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
@@ -48,7 +51,6 @@ public class Board extends JPanel {
         setFocusable(true);
     }
 
-
     private void movePiece(KeyEvent e) {
         int newRow = piece.getRow();
         int newCol = piece.getCol();
@@ -75,50 +77,82 @@ public class Board extends JPanel {
         repaint();
     }
 
-
     private void handleCellAction(int row, int col) {
         CellType cellType = board[row][col].getType();
         if (cellType == CellType.COMMON && new Random().nextDouble() < 0.3) {
             new PopUpQuiz(null).display(); // Display quiz with a 30% chance on common cells
-        }
-        else if (cellType == CellType.MARKET) {
+        } else if (cellType == CellType.MARKET) {
             new PopUpMarket(null).display(); // Display market on market cells
         }
-//        else if (cellType == CellType.END) {
-//            new PopUpEnd(null).display(); // Display end game message on end cell
-//        }
+        // else if (cellType == CellType.END) {
+        // new PopUpEnd(null).display(); // Display end game message on end cell
+        // }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // Use the smaller of the two dimensions to ensure the board remains square
+        int size = Math.min(getWidth(), getHeight());
+        int cellSize = size / Math.max(rows, cols);
+
+        // Calculate offsets to center the board in the panel
+        int xOffset = (getWidth() - (cellSize * cols)) / 2;
+        int yOffset = (getHeight() - (cellSize * rows)) / 2;
+
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                int x = j * cellSize;
-                int y = i * cellSize;
+                int x = xOffset + j * cellSize;
+                int y = yOffset + i * cellSize;
                 Cell cell = board[i][j];
-                if (cell.getType() == CellType.OBSTACLE) {
-                    g.setColor(Color.RED);
-                    g.fillRect(x, y, cellSize, cellSize);
-                } else if (cell.getType() == CellType.MARKET) {
-                    g.setColor(Color.GREEN); // Choose an appropriate color for market cells
-                    g.fillRect(x, y, cellSize, cellSize);
-                    g.setColor(Color.BLACK); // Color for the "M" symbol
-                    g.drawString("M", x + cellSize / 4, y + (3 * cellSize / 4)); // Adjust to center "M"
-                } else {
-                    g.setColor(Color.LIGHT_GRAY);
-                    g.fillRect(x, y, cellSize, cellSize);
+
+                // Determine color based on cell type
+                Color fillColor;
+                switch (cell.getType()) {
+                    case OBSTACLE:
+                        fillColor = Color.RED;
+                        break;
+                    case MARKET:
+                        fillColor = Color.GREEN;
+                        break;
+                    default:
+                        fillColor = Color.LIGHT_GRAY;
+                        break;
                 }
+
+                g.setColor(fillColor);
+                g.fillRect(x, y, cellSize, cellSize);
+
+                // Additional details for MARKET cells
+                if (cell.getType() == CellType.MARKET) {
+                    g.setColor(Color.BLACK);
+                    g.drawString("M", x + cellSize / 4, y + (3 * cellSize / 4));
+                }
+
+                // Outline for all cells
                 g.setColor(Color.BLACK);
                 g.drawRect(x, y, cellSize, cellSize);
 
-                // Draw the piece
+                // Draw the piece if this cell has it
                 if (i == piece.getRow() && j == piece.getCol()) {
                     g.setColor(Color.BLUE);
                     g.fillOval(x + cellSize / 4, y + cellSize / 4, cellSize / 2, cellSize / 2);
                 }
             }
         }
+    }
+
+    public void movePlayer(int dx, int dy) {
+        // Update player's position
+        playerX += dx;
+        playerY += dy;
+
+        // Check for bounds, obstacles, etc., before this in a real application
+
+        // Increment the score for moving
+        Main.setScore(Main.getScore() + 1); // Increment score by 1 for every move
+
+        // Possibly update the GUI or internal state to reflect new player position
     }
 
 }
