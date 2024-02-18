@@ -14,7 +14,10 @@ public class PopUpQuiz {
     }
 
     public void display() {
+        CSVQuestions questions = new CSVQuestions();
+        questions.actionPerformed(null);
         // Example question - replace with your actual quiz content
+
         JLabel questionLabel = new JLabel("What yo momma name?", JLabel.CENTER);
 
         questionLabel.addMouseListener(new java.awt.event.MouseAdapter() {
