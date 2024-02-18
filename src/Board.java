@@ -130,10 +130,12 @@ public class Board extends JPanel {
                 newCol = Math.min(newCol + 1, cols - 1);
                 break;
         }
-
 // Then, in your move completion logic (e.g., inside movePiece method), call:
         if (mainFrame != null) {
             mainFrame.updateBottomBar();
+        }
+        if (mainFrame != null) {
+            mainFrame.updateExpLabel(user.getExp());
         }
 
         // Check if the cell is not an obstacle before moving

@@ -70,4 +70,16 @@ public class User {
         }
         return true;
     }
+
+    // User class methods for inventory management
+    public boolean hasItem(String itemName) {
+        return inventory.containsKey(itemName) && inventory.get(itemName) > 0;
+    }
+
+    public void useItem(String itemName) {
+        if (hasItem(itemName)) {
+            inventory.put(itemName, inventory.get(itemName) - 1);
+        }
+    }
+
 }

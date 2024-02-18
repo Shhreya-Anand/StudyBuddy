@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 
+
 public class PopUpQuiz {
 
     private static final int MAX_QUESTIONS = 5; // Limit the number of questions
@@ -75,14 +76,28 @@ public class PopUpQuiz {
         frame.revalidate();
         frame.repaint();
     }
-
-    private void processAnswer(String selectedOption) {
+    private void processAnswer(String selectedOptionActionCommand) {
         QuizQuestion currentQuestion = questions.get(currentQuestionIndex);
-        if (currentQuestion.getCorrectOption().equals(selectedOption)) {
+        // Get the text of the selected radio button based on its action command
+        String selectedOptionText = null;
+
+        for (Component component : optionsPanel.getComponents()) {
+            if (component instanceof JRadioButton) {
+                JRadioButton radioButton = (JRadioButton) component;
+                if (radioButton.getActionCommand().equals(selectedOptionActionCommand)) {
+                    selectedOptionText = radioButton.getText();
+                    break; // Found the matching radio button, exit the loop
+                }
+            }
+        }
+
+
+        if (currentQuestion.getCorrectAnswerText().equals(selectedOptionText)) {
             userScore += 10; // Increment score for correct answer
+            JOptionPane.showMessageDialog(frame, "Correct!");
             user.setExp(user.getExp() + 10); // Increase user experience
         } else {
-                JOptionPane.showMessageDialog(frame, "Incorrect! The correct answer is: " + currentQuestion.getCorrectOption());
+            JOptionPane.showMessageDialog(frame, "Incorrect! The correct answer is: " + currentQuestion.getCorrectAnswerText());
             userScore -= 5; // Decrement score for wrong answer
             user.setExp(user.getExp() - 5); // Decrease user experience
         }

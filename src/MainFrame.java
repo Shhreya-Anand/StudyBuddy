@@ -10,6 +10,8 @@ import java.util.Random;
 public class MainFrame extends JFrame {
     private JTextArea bottomBarTextArea; // Changed from JLabel to JTextArea
     private List<String> notes = new ArrayList<>();
+    private JLabel expLabel; // Label for displaying current EXP
+
 
     public MainFrame(Board boardPanel, User user) {
         setTitle("Study Game");
@@ -18,9 +20,12 @@ public class MainFrame extends JFrame {
 
         loadNotes(); // Load notes from file
 
-        JPanel topBar = new JPanel();
-        topBar.setLayout(new BoxLayout(topBar, BoxLayout.X_AXIS));
-        topBar.add(Box.createHorizontalGlue());
+        // Creating the top bar with user info and EXP
+        JPanel topBar = new JPanel(new BorderLayout());
+        JLabel nameLabel = new JLabel(" Profile: " + user.getName());
+        expLabel = new JLabel("EXP: " + user.getExp() + " ");
+        topBar.add(nameLabel, BorderLayout.WEST);
+        topBar.add(expLabel, BorderLayout.EAST);
 
         // Initialize JTextArea for the bottom bar with text wrapping
         bottomBarTextArea = new JTextArea(2, 20); // Set initial rows and columns
@@ -46,6 +51,11 @@ public class MainFrame extends JFrame {
         updateBottomBar(); // Initial update
     }
 
+    public void updateExpLabel(int newExp) {
+        expLabel.setText("EXP: " + newExp + " ");
+        expLabel.revalidate();
+        expLabel.repaint();
+    }
 
 
     private void loadNotes() {
