@@ -1,0 +1,10 @@
+question,opt1,opt2,opt3,opt4,optNum,level
+What is the primary purpose of programming?,To create problems,To communicate with computers,To write complex algorithms only,To play video games,B,Beginner
+Which data type would you use to store a person's age in Python?,String,Integer,Float,Boolean,B,Beginner
+What is a function in Python?,A way to store data,A reusable block of code that performs a specific task,A type of Python library,A data structure,B,Beginner
+What does the term 'binary computation' refer to?,Computing with two different programming languages,The process of creating binary trees,The computation using binary numbers (0s and 1s),The study of binary stars,C,Intermediate
+Which control structure allows you to execute a block of code multiple times?,If-else statement,Loop,Function,Class,B,Intermediate
+How does inheritance work in object-oriented programming?,It restricts access to methods in a class,It allows a class to inherit attributes and methods from another class,It merges two classes into one,It duplicates classes for backup purposes,B,Intermediate
+What is polymorphism in the context of programming?,The process of changing the code at runtime,The ability of different classes to use the same interface or method,The encryption of source code,The conversion of data types,B,Advanced
+Explain the significance of modularization in programming.,It refers to the process of selling modules,It makes code more complex and intertwined,It involves dividing a program into separate modules that can be developed independently,It is a process exclusive to Python programming,C,Advanced
+What is exception handling and why is it important?,It is the process of decorating code to make it look nicer,It refers to the handling of errors in a program's user interface,It involves responding to and recovering from error conditions in a program,It is a tool for developing mobile applications,C,Advanced
