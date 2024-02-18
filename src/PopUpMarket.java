@@ -27,4 +27,22 @@ public class PopUpMarket {
         dialog.setLocationRelativeTo(null); // Center the dialog
         dialog.setVisible(true);
     }
+
+    public void hints(){
+        //add code for hints here
+    }
+
+    public void halfhalf(){
+
+    }
+
+    public void switchQuestion(){
+        //add code for switch
+
+    }
+
+    public void skipQuestioin(){
+
+    }
+
 }

@@ -9,9 +9,9 @@ public class User {
     private String uid;
     private String userName;
     private String passwordHashed;
-    private AccountType accountType;
+    //private AccountType accountType;
 
-    private Double balance;
+    private Double score;
 
     private String approval;
 
@@ -19,20 +19,21 @@ public class User {
 
     private Double realisedGains;
 
-    enum AccountType {
+/*     enum AccountType {
         PORTFOLIO_MANAGER,
         NOT_PORTFOLIO_MANAGER,
         DERIVATIVE
     }
-
+*/
+//this is a constructor
     public User(
             String firstName,
             String lastName,
             String uid,
             String userName,
             String passwordHashed,
-            AccountType accountType,
-            Double balance,
+            //AccountType accountType,
+            Double score,
             String approval,
             Double realisedGains
     ) {
@@ -41,8 +42,8 @@ public class User {
         this.uid = uid;
         this.userName = userName;
         this.passwordHashed = passwordHashed;
-        this.accountType = accountType;
-        this.balance = balance;
+        //this.accountType = accountType;
+        this.score = score;
 //        this.stocks = new HashMap<>();
         this.approval = approval;
         this.realisedGains = realisedGains;
@@ -88,24 +89,24 @@ public class User {
         this.passwordHashed = passwordHashed;
     }
 
-    public AccountType getAccountType() {
+ /*    public AccountType getAccountType() {
         return accountType;
     }
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
-
+*/
     public String toCSVString() {
-        return String.join(",", firstName, lastName, uid, userName, passwordHashed, balance.toString(), approval, realisedGains.toString());
+        return String.join(",", firstName, lastName, uid, userName, passwordHashed, score.toString(), approval, realisedGains.toString());
     }
 
     public Double getBalance() {
-        return balance;
+        return score;
     }
 
     public void setBalance(Double balance) {
-        this.balance = balance;
+        this.score = score;
     }
 //
 //    public Map<String, Stock> getStocks() {
@@ -134,7 +135,7 @@ public class User {
     public void setRealisedGains(Double realisedGains) {
         this.realisedGains = realisedGains;
     }
-
+/* 
     public String toString() {
         StringBuilder userStocks = new StringBuilder();
         userStocks.append("<html>Ticker -- # Shares -- Price<br/>-------------------------------------------<br/>");
@@ -145,5 +146,5 @@ public class User {
         System.out.println(userStocks.toString());
         return userStocks.toString();
     }
-
+*/
 }
